@@ -69,6 +69,7 @@ MAINNAME=mazsola2
 #
 # html és cgi
 # root -- IN ANY CASE, THESE MUST EXIST ON $(HOST)!
+#         otherwise 'make deploy-no-db' will fail
 HTMLROOT=/var/www
 CGIROOT=/var/www/cgi-bin
 #
@@ -133,7 +134,7 @@ deploy-no-db: html langs
 	@echo
 	@echo " Please provide password for sudo on $(HOST):"
 	@echo
-	ssh -t $(HOST) "sudo -- sh -c 'mkdir $(HTMLDIR) ; chown root.$(YOURGROUPONHOST) $(HTMLDIR) ; chmod g+ws $(HTMLDIR) ; mkdir $(CGIDIR) ; chown root.$(YOURGROUPONHOST) $(CGIDIR) ; chmod g+ws $(CGIDIR)' ; mkdir -p $(HTMLSECRETDIR) ; mkdir -p $(CGITMPDIR) ; mkdir -p $(CGILOGDIR) ; sudo -- sh -c 'chgrp $(HOSTWEBSERVERUSER) $(CGITMPDIR) $(CGILOGDIR) ; chmod g+w $(CGITMPDIR) $(CGILOGDIR)'"
+	ssh -t $(HOST) "sudo -- sh -c 'mkdir $(HTMLDIR) ; chown root.$(YOURGROUPONHOST) $(HTMLDIR) ; chmod g+ws $(HTMLDIR) ; mkdir $(CGIDIR) ; chown root.$(YOURGROUPONHOST) $(CGIDIR) ; chmod g+ws $(CGIDIR)' ; mkdir $(HTMLSECRETDIR) ; mkdir $(CGITMPDIR) ; mkdir $(CGILOGDIR) ; sudo -- sh -c 'chgrp $(HOSTWEBSERVERUSER) $(CGITMPDIR) $(CGILOGDIR) ; chmod g+w $(CGITMPDIR) $(CGILOGDIR)'"
 	#
 	scp mazsola.jpg ny.png $(HOSTHTMLDIR)
 	scp nyitolap_hun.html $(HOSTHTMLDIR)/index.html
