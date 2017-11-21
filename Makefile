@@ -55,17 +55,20 @@
 # -- corpus: 'éles teszt'
 all:
 	@echo
-	@echo "tipp: make deploy-no-db :)"
+	@echo "You maybe want to do: make deploy-no-db"
+	@echo "                      or"
+	@echo "                      make deploy-db"
 	@echo
 
 
 # -- változók
 #
 # !!!FONTOS!!! 'mazsola2' -- ez most az 'éles teszthely'
+#              -- persze lehet 'mazsola3' is, csak 'mazsola' ne! XXX :)
 # = kapásból ide megy "production"-ba a cucc, de csak én tudok róla. :)
 # LÉNYEG, hogy a valódi éles Mazsolát ('mazsola') felül ne írjuk!
 # XXX XXX XXX azaz nehogy véletlenül MAINNAME=mazsola legyen! (!) XXX :)
-MAINNAME=mazsola2
+MAINNAME=mazsola3
 #
 # html és cgi
 # root -- IN ANY CASE, THESE MUST EXIST ON $(HOST)!
@@ -112,20 +115,17 @@ HOSTDATADIR=$(HOST):$(DATADIR)
 HOSTLEMMAFREQDIR=$(HOST):$(LEMMAFREQDIR)
 #
 # lokális (kiinduló) adatok helye
-LOCALDATADIR=/home/joker/cvswork/pcp/db
-LOCALLEMMAFREQDIR=/home/joker/cvswork/pcp/lemmafreq
+LOCALDATADIR=./data
+LOCALLEMMAFREQDIR=./data/lemmafreq
 #
 # url where the deploy is accessible
 DEPLOYURL=http://$(HOST)/$(MAINNAME)
 
 
-# -- deploy (adatbázisok nélkül)
-#
-# EZ KELL: chmod 777 $(CGIROOT)/mazsola/tmp -- erre mi a mego? XXX
-#
+# -- deploy (without data)
 deploy-no-db: html langs
 	@echo
-	@echo " Deploying to $(HOST)"
+	@echo " Deploying to $(HOST) [MAINNAME=$(MAINNAME)]"
 	@echo
 	#scp mazsola_noauth.html corpus:$(HTMLROOT)/auth # --- ezzel mi legyen? XXX
 	#
@@ -154,21 +154,19 @@ deploy-no-db: html langs
 	@echo " Deploy successful. Go to $(DEPLOYURL) and enjoy. :)"
 	@echo
 
-# -- deploy (csak az adatbázisok)
-#
-# XXX ez is mehetne a leendő mazsdb_from_scratch-es config fájlból!
+# -- deploy (only data)
 deploy-db:
+	@echo
+	@echo " Deploying DATA to $(HOST) [MAINNAME=$(MAINNAME)]"
+	@echo
+	ssh $(HOST) 'mkdir -p $(DATADIR)'
+	ssh $(HOST) 'mkdir -p $(LEMMAFREQDIR)'
 	scp .htaccess $(HOSTDATADIR)
-	scp $(LOCALDATADIR)/db.3-10.g5 $(HOSTDATADIR)
-	scp $(LOCALDATADIR)/db.00_press_nem_clause2.g5 $(HOSTDATADIR)
-	scp $(LOCALDATADIR)/db.07_pers_ind_clause2.g5 $(HOSTDATADIR)
-	scp $(LOCALDATADIR)/db.01_lit_dia_clause2.g5 $(HOSTDATADIR)
-	scp $(LOCALDATADIR)/*.betu $(HOSTDATADIR)
-	scp $(LOCALDATADIR)/db.reszleges.NI $(HOSTDATADIR)
-	scp $(LOCALDATADIR)/db.rosin $(HOSTDATADIR)
-	scp $(LOCALDATADIR)/db.szerb $(HOSTDATADIR)
-	scp $(LOCALLEMMAFREQDIR)/?.fq $(HOSTLEMMAFREQDIR)
-
+	scp $(LOCALDATADIR)/*.mazsoladb $(HOSTDATADIR)
+	scp $(LOCALLEMMAFREQDIR)/*.fq $(HOSTLEMMAFREQDIR)
+	@echo
+	@echo " Deploy of DATA successful. See $(HOSTDATADIR)"
+	@echo
 
 # -- csak a command line változat (hely adatból dolgozik)
 # XXX kéne vmi ilyesmi ide: sed "s|ZZCGITMP_DIRZZ|$(CGITMPDIR)|" | \
