@@ -45,42 +45,6 @@ NOVERBMSG => 1, # 1 ha kell, '' ha nem kell
 # CFG//$EXAMPLES
 EXAMPLES => q(
 
-<!-- VABD -->
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'have' );
-set( 'case1', 'dobj' );
-setR( 'stat', 'stat1' )
-">have dobj</a>,
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'få' );
-set( 'case1', 'dobj' );
-setR( 'stat', 'stat1' )
-">få dobj</a>,
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'være' );
-set( 'case1', 'i' );
-setR( 'stat', 'stat1' )
-">være i</a>,
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'være' );
-set( 'case1', 'på' );
-setR( 'stat', 'stat1' )
-">være på</a>,
-
-<a href="#" onClick="clearAll();
-set( 'case1', 'til' );
-setR( 'stat', 'stat1' )
-">til (without verb)</a>,
-
-<a href="#" onClick="clearAll();
-set( 'case1', 'ved' );
-setR( 'stat', 'stat1' )
-">ved (without verb)</a>
-
 <!-- VAB -->
 
 <a href="#" onClick="clearAll();
@@ -185,6 +149,44 @@ set( 'lemma1', 'veszély' );
 set( 'case2', 'alany' );
 setR( 'stat', 'stat2' )
 ">vmi veszélyben forog</a>
+
+<br/>
+
+<!-- VABD -->
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'have' );
+set( 'case1', 'dobj' );
+setR( 'stat', 'stat1' )
+">have dobj</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'få' );
+set( 'case1', 'dobj' );
+setR( 'stat', 'stat1' )
+">få dobj</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'være' );
+set( 'case1', 'i' );
+setR( 'stat', 'stat1' )
+">være i</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'være' );
+set( 'case1', 'på' );
+setR( 'stat', 'stat1' )
+">være på</a>,
+
+<a href="#" onClick="clearAll();
+set( 'case1', 'til' );
+setR( 'stat', 'stat1' )
+">til (without verb)</a>,
+
+<a href="#" onClick="clearAll();
+set( 'case1', 'ved' );
+setR( 'stat', 'stat1' )
+">ved (without verb)</a>
 
 ),
 
