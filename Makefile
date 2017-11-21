@@ -217,3 +217,9 @@ sed "s|ZZRELCGI_DIRZZ|$(RELCGIDIR)|" | \
 sed "s|ZZDBFILE_DIRZZ|$(DATADIR)|" | \
 sed "s|ZZDBFREQ_DIRZZ|$(LEMMAFREQDIR)|" > mazsola_repl_skel.pl
 
+# -- clean after 'make deploy-no-db'
+clean:
+	rm -f index_eng.html index_hun.html
+	rm -f mazsola_config_eng.pl mazsola_config_hun.pl
+	rm -f mazsola_eng.pl mazsola_hun.pl
+
