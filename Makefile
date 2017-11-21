@@ -164,7 +164,7 @@ html: langs
 
 # -- kétnyelvűsítés (a *_repl_* fájlok a lényegesek, ld. 'make replace')
 langs: replace
-	langs.pl
+	./langs.pl
 	mv mazsola_repl_hun.pl mazsola_hun.pl
 	mv mazsola_repl_eng.pl mazsola_eng.pl
 	chmod 755 mazsola_hun.pl mazsola_eng.pl
