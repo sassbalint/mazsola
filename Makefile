@@ -68,14 +68,25 @@ all:
 MAINNAME=mazsola2
 #
 # html és cgi
-HTMLDIR=/var/www/$(MAINNAME)
-HTMLSECRETDIR=/var/www/$(MAINNAME)/s
-CGIDIR=/var/www/cgi-bin/$(MAINNAME)
-CGITMPDIR=/var/www/cgi-bin/$(MAINNAME)/tmp
-CGILOGDIR=/var/www/cgi-bin/$(MAINNAME)/log
-RELCGIDIR=/cgi-bin/$(MAINNAME)
+# root -- IN ANY CASE, THESE MUST EXIST ON $(HOST)!
+HTMLROOT=/var/www
+CGIROOT=/var/www/cgi-bin
 #
-# XXX ezeket legalább nem lehetne kiküszöblni? :)
+# dirs for VAB -- do not change maybe
+HTMLDIR=$(HTMLROOT)/$(MAINNAME)
+HTMLSECRETDIR=$(HTMLDIR)/s
+CGIDIR=$(CGIROOT)/$(MAINNAME)
+CGITMPDIR=$(CGIDIR)/tmp
+CGILOGDIR=$(CGIDIR)/log
+#
+YOURGROUPONHOST=www
+# a group on $(HOST) writable for you
+HOSTWEBSERVERUSER=www-data
+# webserver user on $(HOST)
+#
+# XXX ezeket nem lehetne kiküszöblni/kiszámolni? :)
+# XXX ugye a HTMLROOT <--> CGIROOT viszonyából kéne vhogy kiszámolni...
+RELCGIDIR=/cgi-bin/$(MAINNAME)
 HTMLDIRFROMCGI=../../$(MAINNAME)
 HTMLSECRETDIRFROMCGI=../../$(MAINNAME)/s
 #
@@ -102,31 +113,45 @@ HOSTLEMMAFREQDIR=$(HOST):$(LEMMAFREQDIR)
 # lokális (kiinduló) adatok helye
 LOCALDATADIR=/home/joker/cvswork/pcp/db
 LOCALLEMMAFREQDIR=/home/joker/cvswork/pcp/lemmafreq
+#
+# url where the deploy is accessible
+DEPLOYURL=http://$(HOST)/$(MAINNAME)
 
 
 # -- deploy (adatbázisok nélkül)
 #
-# EZ KELL: chmod 777 /var/www/cgi-bin/mazsola/tmp -- erre mi a mego? XXX
+# EZ KELL: chmod 777 $(CGIROOT)/mazsola/tmp -- erre mi a mego? XXX
 #
 deploy-no-db: html langs
-	#scp mazsola_noauth.html corpus:/var/www/auth # --- ezzel mi legyen? XXX
+	@echo
+	@echo " Deploying to $(HOST)"
+	@echo
+	#scp mazsola_noauth.html corpus:$(HTMLROOT)/auth # --- ezzel mi legyen? XXX
+	#
+	# kvtárak a távoli gépen -- sudo kell + 'ssh -t' a jelszóhoz
+	# fontos hogy a 3 mkdir sudo-n kívül legyen! :)
+	@echo
+	@echo " Please provide password for sudo on $(HOST):"
+	@echo
+	ssh -t $(HOST) "sudo -- sh -c 'mkdir $(HTMLDIR) ; chown root.$(YOURGROUPONHOST) $(HTMLDIR) ; chmod g+ws $(HTMLDIR) ; mkdir $(CGIDIR) ; chown root.$(YOURGROUPONHOST) $(CGIDIR) ; chmod g+ws $(CGIDIR)' ; mkdir -p $(HTMLSECRETDIR) ; mkdir -p $(CGITMPDIR) ; mkdir -p $(CGILOGDIR) ; sudo -- sh -c 'chgrp $(HOSTWEBSERVERUSER) $(CGITMPDIR) $(CGILOGDIR) ; chmod g+w $(CGITMPDIR) $(CGILOGDIR)'"
+	#
 	scp mazsola.jpg ny.png $(HOSTHTMLDIR)
 	scp nyitolap_hun.html $(HOSTHTMLDIR)/index.html
 	scp nyitolap_hun.html $(HOSTHTMLDIR)/index_hun.html
 	scp nyitolap_eng.html $(HOSTHTMLDIR)/index_eng.html
-	ssh $(HOST) 'mkdir -p $(HTMLSECRETDIR)'
 	scp .htaccess mazsola.jpg $(HOSTHTMLSECRETDIR)
 	scp index_hun.html $(HOSTHTMLSECRETDIR)/mazsola.html
 	scp index_hun.html $(HOSTHTMLSECRETDIR)/mazsola_hun.html
 	scp index_eng.html $(HOSTHTMLSECRETDIR)/mazsola_eng.html
 	scp .htaccess mazsola.jpg $(HOSTCGIDIR)
-	ssh $(HOST) 'mkdir -p $(CGITMPDIR)'
-	ssh $(HOST) 'mkdir -p $(CGILOGDIR)'
 	scp $(LOCALDATADIR)/auto_feldolgozo.pl $(HOSTCGIDIR)
 	scp mazsola_hun.pl $(HOSTCGIDIR)
 	scp mazsola_eng.pl $(HOSTCGIDIR)
 	scp mazsola_config_hun.pl $(HOSTCGIDIR)
 	scp mazsola_config_eng.pl $(HOSTCGIDIR)
+	@echo
+	@echo " Deploy successful. Go to $(DEPLOYURL) and enjoy. :)"
+	@echo
 
 # -- deploy (csak az adatbázisok)
 #
@@ -158,12 +183,18 @@ sed "s|ZZDBFILE_DIRZZ|$(LOCALDATADIR)|" > mazsola_command.pl
 
 # -- html-generálás
 html: langs
+	@echo
+	@echo " Creating html..."
+	@echo
 	./mazsola_hun.pl -i > index_hun.html
 	./mazsola_eng.pl -i > index_eng.html
 
 
 # -- kétnyelvűsítés (a *_repl_* fájlok a lényegesek, ld. 'make replace')
 langs: replace
+	@echo
+	@echo " Performing localization..."
+	@echo
 	./langs.pl
 	mv mazsola_repl_hun.pl mazsola_hun.pl
 	mv mazsola_repl_eng.pl mazsola_eng.pl
@@ -173,6 +204,9 @@ langs: replace
 
 # -- (nyelvfüggetlen) változók behelyettesítése
 replace: mazsola_skel.pl
+	@echo
+	@echo " Setting variables..."
+	@echo
 	cat mazsola_skel.pl | \
 sed "s|ZZHTMLDIRFROMCGIZZ|$(HTMLDIRFROMCGI)|" | \
 sed "s|ZZHTMLSECRETDIRFROMCGIZZ|$(HTMLSECRETDIRFROMCGI)|" | \

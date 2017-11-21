@@ -1,0 +1,10 @@
+deny from all
+AuthName "Verb Argument Browser for Danish"
+AuthType Basic
+AuthUserFile /etc/httpd/conf/mnsz
+satisfy any
+
+require valid-user
+
+#ErrorDocument 401 "/auth/mazsola_noauth.html"
+
