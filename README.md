@@ -12,7 +12,7 @@ Author: [Bálint Sass](http://www.nytud.hu/depts/corpus/Sass_Balint.html)
 
 1. Set variables appropriately in `Makefile`.
 2. `make deploy-no-db` to deploy the tool itself.
-3. `make deploy-db` to deploy de sample corpora shipped with the tool.
+3. `make deploy-db` to deploy the sample corpora shipped with the tool.
 4. That's it. :)
 
 ## Usage for your data
