@@ -13,24 +13,10 @@ use strict;
 #    egységesen vagy tömörítettek vagy tömörítetlenek legyenek!
 CORPORA => [
 
-  { id => 'mnsz',
-    db => 'hnc_sample.mazsoladb', # demo from HNC (only verbs beginning with 'n')
-    dbfreq => 'hnc_sample.fq',
-    gloss => '@1115',
-    size => '0',
-    freqth => 2 },
-
-  { id => 'vabd',
-    db => 'ddt_sample.mazsoladb',
-    dbfreq => 'ddt_sample.fq',
-    gloss => 'Danish Dependency Treebank',
-    size => '0',
-    freqth => 2 },
-
-  { id => 'vabs',
-    db => 'intera_sample.mazsoladb',
-    dbfreq => 'intera_sample.fq',
-    gloss => '@1117',
+  { id => 'hnc',
+    db => 'hnc_sample.mazsoladb', # demo: verbs beginning with 'n'
+    dbfreq => 'hnc_sample.fq', # XXX empty...
+    gloss => '@1115 @1180',
     size => '0',
     freqth => 2 },
 
@@ -46,7 +32,7 @@ CHARSET => 'iso-8859-2',
 
 
 # CFG//$NOVERBMSG
-NOVERBMSG => 1, # 1 ha kell, '' ha nem kell
+NOVERBMSG => '', # 1 ha kell, '' ha nem kell
 
 
 # CFG//$EXAMPLES
@@ -156,62 +142,6 @@ set( 'lemma1', 'veszély' );
 set( 'case2', 'alany' );
 setR( 'stat', 'stat2' )
 ">vmi veszélyben forog</a>
-
-<br/>
-
-<!-- VABD -->
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'have' );
-set( 'case1', 'dobj' );
-setR( 'stat', 'stat1' )
-">have dobj</a>,
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'få' );
-set( 'case1', 'dobj' );
-setR( 'stat', 'stat1' )
-">få dobj</a>,
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'være' );
-set( 'case1', 'i' );
-setR( 'stat', 'stat1' )
-">være i</a>,
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'være' );
-set( 'case1', 'på' );
-setR( 'stat', 'stat1' )
-">være på</a>,
-
-<a href="#" onClick="clearAll();
-set( 'case1', 'til' );
-setR( 'stat', 'stat1' )
-">til (without verb)</a>,
-
-<a href="#" onClick="clearAll();
-set( 'case1', 'ved' );
-setR( 'stat', 'stat1' )
-">ved (without verb)</a>
-
-<br/>
-
-<!-- VABS -->
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'imati' );
-set( 'case1', 'ANYCASE' );
-setR( 'stat', 'stat1' )
-">imati ANYCASE</a>,
-
-<a href="#" onClick="clearAll();
-set( 'stem', 'imati' );
-set( 'case1', 'ANYCASE' );
-set( 'lemma1', 'pravo' );
-set( 'case2', 'na' );
-setR( 'stat', 'stat2' )
-">imati pravo na</a>
 
 ),
 

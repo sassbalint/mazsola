@@ -55,9 +55,11 @@
 # -- corpus: 'éles teszt'
 all:
 	@echo
-	@echo "You maybe want to do: make deploy-no-db"
-	@echo "                      or"
-	@echo "                      make deploy-db"
+	@echo " You maybe want to do:"
+	@echo "make deploy-no-db"
+	@echo " to deploy the VAB itself or"
+	@echo "make deploy-db"
+	@echo " to deploy the data for the VAB."
 	@echo
 
 
@@ -183,7 +185,7 @@ sed "s|ZZDBFILE_DIRZZ|$(LOCALDATADIR)|" > mazsola_command.pl
 # -- html-generálás
 html: langs
 	@echo
-	@echo " Creating html..."
+	@echo " Creating html... (ignore warnings in this part, please)"
 	@echo
 	./mazsola_hun.pl -i > index_hun.html
 	./mazsola_eng.pl -i > index_eng.html

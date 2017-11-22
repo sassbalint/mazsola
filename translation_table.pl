@@ -20,7 +20,11 @@
 @1114	MNSZ: személyes	HNC: personal
 
 @1115	Magyar Nemzeti Szövegtár	Hungarian National Corpus
+@1116	Danish Dependency Treebank	Danish Dependency Treebank
 @1117	Intera korpusz (szerb)	Intera corpus (Serbian)
+@1118	TLT korpusz (holland-francia párhuzamos)	TLT corpus (Dutch-French parallel)
+
+@1180	- minta	- sample
 
 @1200	Korpusz	Corpus
 @1210	Eloszlás	Distribution

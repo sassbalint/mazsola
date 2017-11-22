@@ -13,10 +13,10 @@ use strict;
 #    egységesen vagy tömörítettek vagy tömörítetlenek legyenek!
 CORPORA => [
 
-  { id => 'vabs',
-    db => 'db.szerb',
-    dbfreq => 'szerb.lemma.fq',
-    gloss => 'Intera corpus (Serbian)',
+  { id => 'tlt',
+    db => 'tltnlfr_sample.mazsoladb', # demo: 5000 sentences
+    dbfreq => 'tltnlfr_sample.fq', # XXX empty...
+    gloss => '@1118 @1180',
     size => '1',
     freqth => 3 },
 
@@ -28,7 +28,7 @@ LOAD_AVG_TH => 3, # efölött a load fölött nem fogadunk kérést!
 
 
 # CFG//$CHARSET
-CHARSET => 'iso-8859-2',
+CHARSET => 'iso-8859-1',
 
 
 # CFG//$NOVERBMSG
@@ -38,19 +38,28 @@ NOVERBMSG => '', # 1 ha kell, '' ha nem kell
 # CFG//$EXAMPLES
 EXAMPLES => q(
 
-<a href="#" onClick="clearAll();
-set( 'stem', 'imati' );
-set( 'case1', 'ANYCASE' );
-setR( 'stat', 'stat1' )
-">imati ANYCASE</a>,
+<!-- VABNLFR -->
 
 <a href="#" onClick="clearAll();
-set( 'stem', 'imati' );
-set( 'case1', 'ANYCASE' );
-set( 'lemma1', 'pravo' );
-set( 'case2', 'na' );
-setR( 'stat', 'stat2' )
-">imati pravo na</a>
+set( 'stem', 'nl_maken\\\\+fr_faire' );
+set( 'case1', 'nl_ACC' );
+setR( 'stat', 'stat1' )
+">nl_maken\+fr_faire nl_ACC</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'nl_maken\\\\+fr_faire' );
+set( 'case1', 'fr_ACC' );
+setR( 'stat', 'stat1' )
+">nl_maken\+fr_faire fr_ACC</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'nl_maken\\\\+fr_faire' );
+set( 'case1', 'nl_ACC' );
+set( 'lemma1', 'deel' );
+set( 'case2', 'fr_ACC' );
+set( 'lemma2', 'partie' );
+setR( 'stat', 'statstem' )
+">maken deel + faire partie</a>
 
 ),
 

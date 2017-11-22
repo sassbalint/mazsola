@@ -1,1 +1,1 @@
-mazsola_config_mnsz-vabd-vabs.pl
+mazsola_config_all.pl

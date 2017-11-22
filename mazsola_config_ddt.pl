@@ -13,11 +13,11 @@ use strict;
 #    egységesen vagy tömörítettek vagy tömörítetlenek legyenek!
 CORPORA => [
 
-  { id => 'vabd',
-    db => 'db.rosin',
-    dbfreq => 'rosin.lemma.fq',
-    gloss => 'Danish Dependency Treebank',
-    size => '1',
+  { id => 'ddt',
+    db => 'ddt_sample.mazsoladb', # demo: 1000 sentences
+    dbfreq => 'ddt_sample.fq', # XXX empty...
+    gloss => '@1116 @1180',
+    size => '0',
     freqth => 2 },
 
 ],
@@ -37,6 +37,8 @@ NOVERBMSG => '', # 1 ha kell, '' ha nem kell
 
 # CFG//$EXAMPLES
 EXAMPLES => q(
+
+<!-- VABD -->
 
 <a href="#" onClick="clearAll();
 set( 'stem', 'have' );

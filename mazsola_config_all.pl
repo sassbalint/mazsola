@@ -13,12 +13,33 @@ use strict;
 #    egységesen vagy tömörítettek vagy tömörítetlenek legyenek!
 CORPORA => [
 
-  { id => 'mnsz',
-    db => 'n.betu', # XXX demónak csak a n-betûs igék az MNSZ-bõl :)
-    dbfreq => '?.fq', # XXX dbfreq = '?.fq' simán megy :)
-    gloss => '@1115',
-    size => '8',
-    freqth => 5 },
+  { id => 'hnc',
+    db => 'hnc_sample.mazsoladb', # demo: verbs beginning with 'n'
+    dbfreq => 'hnc_sample.fq', # XXX empty...
+    gloss => '@1115 @1180',
+    size => '0',
+    freqth => 2 },
+
+  { id => 'ddt',
+    db => 'ddt_sample.mazsoladb', # demo: 1000 sentences
+    dbfreq => 'ddt_sample.fq', # XXX empty...
+    gloss => '@1116 @1180',
+    size => '0',
+    freqth => 2 },
+
+  { id => 'int',
+    db => 'intera_sample.mazsoladb', # demo: 1000 sentences
+    dbfreq => 'intera_sample.fq', # XXX empty...
+    gloss => '@1117 @1180',
+    size => '0',
+    freqth => 2 },
+
+  { id => 'tlt',
+    db => 'tltnlfr_sample.mazsoladb', # demo: 5000 sentences
+    dbfreq => 'tltnlfr_sample.fq', # XXX empty...
+    gloss => '@1118 @1180',
+    size => '1',
+    freqth => 3 },
 
 ],
 
@@ -28,16 +49,19 @@ LOAD_AVG_TH => 3, # efölött a load fölött nem fogadunk kérést!
 
 
 # CFG//$CHARSET
-CHARSET => 'iso-8859-2',
+CHARSET => 'iso-8859-2', # ok: 'hnc' and 'int' -- not ok: 'ddt' and 'tlt'
 
 
 # CFG//$NOVERBMSG
-NOVERBMSG => 1, # 1 ha kell, '' ha nem kell
+NOVERBMSG => '', # 1 ha kell, '' ha nem kell
 
 
 # CFG//$EXAMPLES
 EXAMPLES => q(
 
+<!-- VAB -->
+
+@1115:
 <a href="#" onClick="clearAll();
 set( 'stem', 'hány' );
 set( 'case1', '-t' );
@@ -140,6 +164,90 @@ set( 'lemma1', 'veszély' );
 set( 'case2', 'alany' );
 setR( 'stat', 'stat2' )
 ">vmi veszélyben forog</a>
+
+<br/>
+
+<!-- VABD -->
+
+@1116:
+<a href="#" onClick="clearAll();
+set( 'stem', 'have' );
+set( 'case1', 'dobj' );
+setR( 'stat', 'stat1' )
+">have dobj</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'få' );
+set( 'case1', 'dobj' );
+setR( 'stat', 'stat1' )
+">få dobj</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'være' );
+set( 'case1', 'i' );
+setR( 'stat', 'stat1' )
+">være i</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'være' );
+set( 'case1', 'på' );
+setR( 'stat', 'stat1' )
+">være på</a>,
+
+<a href="#" onClick="clearAll();
+set( 'case1', 'til' );
+setR( 'stat', 'stat1' )
+">til (without verb)</a>,
+
+<a href="#" onClick="clearAll();
+set( 'case1', 'ved' );
+setR( 'stat', 'stat1' )
+">ved (without verb)</a>
+
+<br/>
+
+<!-- VABS -->
+
+@1117:
+<a href="#" onClick="clearAll();
+set( 'stem', 'imati' );
+set( 'case1', 'ANYCASE' );
+setR( 'stat', 'stat1' )
+">imati ANYCASE</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'imati' );
+set( 'case1', 'ANYCASE' );
+set( 'lemma1', 'pravo' );
+set( 'case2', 'na' );
+setR( 'stat', 'stat2' )
+">imati pravo na</a>
+
+<br/>
+
+<!-- VABNLFR -->
+
+@1118:
+<a href="#" onClick="clearAll();
+set( 'stem', 'nl_maken\\\\+fr_faire' );
+set( 'case1', 'nl_ACC' );
+setR( 'stat', 'stat1' )
+">nl_maken\+fr_faire nl_ACC</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'nl_maken\\\\+fr_faire' );
+set( 'case1', 'fr_ACC' );
+setR( 'stat', 'stat1' )
+">nl_maken\+fr_faire fr_ACC</a>,
+
+<a href="#" onClick="clearAll();
+set( 'stem', 'nl_maken\\\\+fr_faire' );
+set( 'case1', 'nl_ACC' );
+set( 'lemma1', 'deel' );
+set( 'case2', 'fr_ACC' );
+set( 'lemma2', 'partie' );
+setR( 'stat', 'statstem' )
+">maken deel + faire partie</a>
 
 ),
 
