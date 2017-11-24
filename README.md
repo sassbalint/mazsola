@@ -8,6 +8,11 @@ which is accessible together with the Hungarian National Corpus.
 
 Author: [Bálint Sass](http://www.nytud.hu/depts/corpus/Sass_Balint.html)
 
+## Requirements
+
+- linux
+- perl
+
 ## Installation
 
 1. Set variables appropriately in `Makefile`.
