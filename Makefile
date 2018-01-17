@@ -1,57 +1,4 @@
 
-#### # 2012.04.13. -- lett csak találati szám
-#### lett ilyen is! (ami tovább bonyolítja)
-#### corpus --> mazsola_hun_cnt.pl (ami csak találati számot ad)
-#### diff_script.INFO -t (is) nagyon tessék nézni! :)
-#### 
-#### # 2010.02.24. -- a szerb mazsola kapcsán
-####  !
-####  ! még tilosabb make-zni :)
-####  ! előbb mindent meg kell csinálni, ami itt van! XXX XXX XXX :)
-####  ! 
-#### kézzel írtam át a deployoltban:
-####  ! 
-####  ! A deployoltban (camel (és a dánra a corpus is)) van old verzió,
-####  ! azzal mindenképp diffvi-zzek, mielőtt felülírnám!!! XXX
-####  ! 
-#### #
-#### # VAB for Serbian-t is kitettem a corpus-ra: http://corpus/vabs
-#### # totálisan kézzel másolgattam oda, ez már tök gáz!!! XXX XXX XXX XXX:)
-#### 
-#### # 2010. feb -- lett jelszómentes nyitólap
-#### # így felelnek meg egymásnak a fájlok
-#### #  * itt: index*.html    -> szerver: (s/)mazsola*.html
-#### #  * itt: nyitolap*.html -> szerver: index*.html
-#### # Ezeket is integrálni kellene a mazsola_skel.pl -be
-#### # a közös részek miatt (dizájn, verziószám stb.) (!) XXX 
-#### 
-#### # 2009. máj -- a dán mazsola kapcsán
-####  ! 
-####  ! TILOS make-zni, csak így: 'make vab_no_db'
-####  ! (eredetileg 'make vabd_no_db' volt, de most átírom általánosra!)
-####  ! cdiffvi alapján meg kell csinálni a paraméterezést! config-gal?
-####  ! 
-#### kézzel írtam át a deployoltban:
-####  * két korpuszt beletettem a 'POSS' izé vizsgálatára
-#### <   { id => 's1', db => 'db.t.noPOSS',
-#### <                gloss => 'db.t.noPOSS', size => '1', freqth => 2 },
-#### <   { id => 's2', db => 'db.t.POSS',
-#### <                gloss => 'db.t.POSS', size => '1', freqth => 2 },
-####  * még egy korpusz az "új" Mazsi tesztelésére:
-#### <   { id => 's3', db => 'db.5_pers.vert.portionA_clause2.g7',
-#### <                gloss => 'új Mazsi teszt 5/porA', size => '1', freqth => 5 }, 
-####  * kikommenteztem a 'for' nagybetűsítését, hogy a dán 'for' prep megmaradhasson
-#### #  "for"        => "FOR", -- dán 'for' elöljáró miatt kihagyva! XXX :)
-####  * könnyebb dán karakterbevitel... :)
-#### $s =~ s/aa/ĺ/g;
-#### $s =~ s/ae/ć/g;
-#### $s =~ s/oe/ř/g;
-####  ! 
-####  ! A deployolt-akban (camel és corpus) van old verzió,
-####  ! azzal mindenképp diffvi-zzek, mielőtt felülírnám!!! XXX
-####  ! 
-
-
 # -- corpus: 'éles teszt'
 all:
 	@echo
@@ -61,13 +8,17 @@ all:
 	@echo "make deploy-db"
 	@echo " to deploy the data for the VAB."
 	@echo
+	@echo "Consider setting the following variables in Makefile:"
+	@echo " HOST (currently: $(HOST))"
+	@echo " MAINNAME (currently: $(MAINNAME))"
+	@echo
 
 
 # -- változók
 #
 # !!!FONTOS!!! 'mazsola2' -- ez most az 'éles teszthely'
 #              -- persze lehet 'mazsola3' is, csak 'mazsola' ne! XXX :)
-# = kapásból ide megy "production"-ba a cucc, de csak én tudok róla. :)
+# = kapásból ide megy "production"-ba a cucc, ideiglenes hely. :)
 # LÉNYEG, hogy a valódi éles Mazsolát ('mazsola') felül ne írjuk!
 # XXX XXX XXX azaz nehogy véletlenül MAINNAME=mazsola legyen! (!) XXX :)
 MAINNAME=mazsola3
@@ -98,13 +49,13 @@ HTMLSECRETDIRFROMCGI=../../$(MAINNAME)/s
 #
 # adatok
 # adatnak (for reading) használhatjuk persze az eredeti mazsolás adatokat is
-# CSAK NEHOGY FELÜLÍRJUK ŐKET VMI MARHASÁGGAL! (!) XXX :)
+# CSAK NEHOGY FELÜLÍRJUK ŐKET VMIVEL! (!) XXX :)
 DATADIR=/home4/joker/$(MAINNAME)_data
 LEMMAFREQDIR=$(DATADIR)/lemmafreq
 # persze, lehet így a DATADIR alatt, de nem kötelező
 #
 # deploy szerver -- program és adatok is ide kerülnek
-HOST=corpus.nytud.hu
+HOST=localhost
 #
 # XXX egyelőre feltesszük, hogy létezik:
 #     HOSTHTMLDIR HOSTCGIDIR HOSTDATADIR HOSTLEMMAFREQDIR
