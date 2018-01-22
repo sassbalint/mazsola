@@ -8,6 +8,9 @@ all:
 	@echo "make deploy-db"
 	@echo " to deploy the data for the VAB."
 	@echo
+	@echo "The system will be deployed here:"
+	@echo "$(DEPLOYURL)"
+	@echo
 	@echo "Consider setting the following variables in Makefile:"
 	@echo " HOST (currently: $(HOST))"
 	@echo " MAINNAME (currently: $(MAINNAME))"
